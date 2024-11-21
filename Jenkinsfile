@@ -5,20 +5,21 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Installing dependencies...'
-                sh 'pip install -r requirements.txt'
+                sh 'python3 -m pip install --upgrade pip'
+                sh 'python3 -m pip install -r requirements.txt'
             }
         }
         stage('Test') {
             steps {
                 echo 'Running tests...'
-                sh 'python -m unittest discover -s .'
+                sh 'python3 -m unittest discover -s tests'
             }
         }
         stage('Deploy') {
             steps {
                 echo 'Deploying application...'
                 sh '''
-                mkdir -p /tmp/python-app-deploy
+                mkdir -p /tmp/python-flaskApp
                 cp app.py /tmp/python-app-deploy/
                 '''
             }
